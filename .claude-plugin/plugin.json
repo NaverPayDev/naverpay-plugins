@@ -1,0 +1,10 @@
+{
+  "name": "naverpay-plugins",
+  "description": "NaverPay Plugin for Claude",
+  "version": "1.0.0",
+  "author": {
+    "name": "NaverPayDev"
+  },
+  "repository": "https://github.com/NaverPayDev/naverpay-plugins",
+  "keywords": ["naverpay", "claude-plugin", "claude", "plugin"]
+}
