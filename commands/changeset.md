@@ -14,7 +14,7 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
       - 기존 버전과 호환되지 않게 API가 바뀌면 "major 버전"을 올리고,
       - 기존 버전과 호환되면서 새로운 기능을 추가할 때는 "minor 버전"을 올리고,
       - 기존 버전과 호환되면서 버그를 수정한 것이라면 "patch 버전"을 올린다.
-4. 커밋 메시지를 기반으로 변경 내용을 한 문장으로 간결하게 요약
+4. 커밋 메시지와 변경 사항을 기반으로 변경 내용을 일목요연하게 요약
 5. `.changeset/[random-name].md` 파일 생성
    1. 기존에 changeset 파일이 존재한다면 해당 파일을 덮어씀.
 
@@ -24,10 +24,55 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 
 ```markdown
 ---
-"@naverpay/some-package": minor
+"@naverpay/some-package": patch | minor | major
 ---
 
-[변경 내용 요약]
+### 변경 내용 요약 제목
+
+- 변경 사항 1
+- 변경 사항 2
+```
+
+### 단일 패키지 변경 예시
+
+```markdown
+---
+"@naverpay/utils": patch
+---
+
+### 버그 수정
+
+- `someFunc` 함수에서 로직 오류 수정
+```
+
+### 다중 패키지 변경 예시
+
+```markdown
+---
+"@naverpay/core": minor
+"@naverpay/utils": patch
+---
+
+### 새로운 기능 추가
+
+- "@naverpay/core": 새로운 `usePayment` 훅 추가
+
+### 단순 수정
+- "@naverpay/utils": 변수명 변경
+```
+
+### Breaking Change 예시
+
+```markdown
+---
+"@naverpay/sdk": major
+---
+
+### Breaking Changes
+
+- `initialize()` 함수의 시그니처 변경: `options` 파라미터가 필수로 변경됨
+  - 기존: `initialize(apiKey?: string)`
+  - 변경: `initialize(options: InitOptions)`
 ```
 
 ## changeset 파일명 생성 방법
