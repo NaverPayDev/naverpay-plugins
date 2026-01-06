@@ -14,7 +14,7 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
       - 기존 버전과 호환되지 않게 API가 바뀌면 "major 버전"을 올리고,
       - 기존 버전과 호환되면서 새로운 기능을 추가할 때는 "minor 버전"을 올리고,
       - 기존 버전과 호환되면서 버그를 수정한 것이라면 "patch 버전"을 올린다.
-4. 커밋 메시지를 기반으로 변경 내용 요약
+4. 커밋 메시지를 기반으로 변경 내용을 한 문장으로 간결하게 요약
 5. `.changeset/[random-name].md` 파일 생성
    1. 기존에 changeset 파일이 존재한다면 해당 파일을 덮어씀.
 
@@ -23,7 +23,9 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 생성되는 changeset 파일 형식:
 
 ```markdown
-## "[패키지 명]": patch
+---
+"@naverpay/some-package": minor
+---
 
 [변경 내용 요약]
 ```
