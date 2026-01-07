@@ -10,13 +10,14 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 1. `git diff main..HEAD`로 모든 변경사항과 변경된 파일 목록 확인
 2. `packages/` 디렉토리 내 변경된 패키지 식별
 3. 사용자에게 각 패키지별 버전 타입 질문 (major/minor/patch)
-   1. 유의적 버전 명세에 맞게 타입을 추천
+   1. 유의적 버전 명세에 맞게 일관된 타입을 추천 (https://semver.org/)
       - 기존 버전과 호환되지 않게 API가 바뀌면 "major 버전"을 올리고,
       - 기존 버전과 호환되면서 새로운 기능을 추가할 때는 "minor 버전"을 올리고,
       - 기존 버전과 호환되면서 버그를 수정한 것이라면 "patch 버전"을 올린다.
 4. 커밋 메시지와 변경 사항을 기반으로 변경 내용을 일목요연하게 요약
 5. `.changeset/[random-name].md` 파일 생성
    1. 기존에 changeset 파일이 존재한다면 해당 파일을 덮어씀.
+   2. 모노레포 환경에서 변경된 패키지가 여러개라면 changeset 파일을 각각 생성함.
 
 ## 파일 형식
 
@@ -33,7 +34,7 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 - 변경 사항 2
 ```
 
-### 단일 패키지 변경 예시
+### changeset 파일 예시
 
 ```markdown
 ---
@@ -44,24 +45,6 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 
 - `someFunc` 함수에서 로직 오류 수정
 ```
-
-### 다중 패키지 변경 예시
-
-```markdown
----
-"@naverpay/core": minor
-"@naverpay/utils": patch
----
-
-### 새로운 기능 추가
-
-- "@naverpay/core": 새로운 `usePayment` 훅 추가
-
-### 단순 수정
-- "@naverpay/utils": 변수명 변경
-```
-
-### Breaking Change 예시
 
 ```markdown
 ---
