@@ -20,7 +20,7 @@
       "name": "pr",
       "source": "./",
       "description": "현재 브랜치에서 드래프트 PR 생성",
-      "version": "1.0.0-beta.1"
+      "version": "1.0.0-beta.2"
     }
   ]
 }
