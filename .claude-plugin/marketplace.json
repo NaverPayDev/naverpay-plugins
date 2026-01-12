@@ -1,0 +1,14 @@
+{
+  "name": "naverpay-plugins",
+  "owner": {
+    "name": "NaverPayDev"
+  },
+  "plugins": [
+    {
+      "name": "changeset",
+      "source": "./",
+      "description": "변경된 패키지 감지 및 changeset 파일 생성",
+      "version": "1.0.0"
+    }
+  ]
+}
