@@ -29,12 +29,12 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 "@naverpay/some-package": patch | minor | major
 ---
 
-### 변경 내용 요약 제목1
+**변경 내용 요약 제목1**
 
 - 변경 사항 1
 - 변경 사항 2
 
-### 변경 내용 요약 제목2
+**변경 내용 요약 제목2**
 
 - 변경 사항 1
 ```
@@ -46,7 +46,7 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 "@naverpay/utils": patch
 ---
 
-### 버그 수정
+**버그 수정**
 
 - `someFunc` 함수에서 로직 오류 수정
 ```
@@ -56,13 +56,13 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 "@naverpay/sdk": major
 ---
 
-### Breaking Changes
+**Breaking Changes**
 
 - `initialize()` 함수의 시그니처 변경: `options` 파라미터가 필수로 변경됨
   - 기존: `initialize(apiKey?: string)`
   - 변경: `initialize(options: InitOptions)`
 
-### 문서 업데이트
+**문서 업데이트**
 
 - README 업데이트
 ```
