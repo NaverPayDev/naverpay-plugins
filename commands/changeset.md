@@ -15,7 +15,8 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
       - 기존 버전과 호환되면서 새로운 기능을 추가할 때는 "minor 버전"을 올리고,
       - 기존 버전과 호환되면서 버그를 수정한 것이라면 "patch 버전"을 올린다.
 4. 커밋 메시지와 변경 사항을 기반으로 변경 내용을 일목요연하게 요약
-   1. 변경 내용을 비슷한 유형끼리 그룹화하여 소제목과 함께 작성
+   1. 전체 변경사항을 한 문장으로 짧게 요약
+   2. 상세 요약 - 변경 내용을 비슷한 유형끼리 그룹화하여 소제목과 함께 작성
 5. `.changeset/[random-name].md` 파일 생성
    1. 기존에 changeset 파일이 존재한다면 해당 파일을 덮어씀.
    2. 모노레포 환경에서 변경된 패키지가 여러개라면 changeset 파일을 각각 생성함.
@@ -28,6 +29,8 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 ---
 "@naverpay/some-package": patch | minor | major
 ---
+
+전체 요약
 
 **변경 내용 요약 제목1**
 
@@ -46,6 +49,8 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 "@naverpay/utils": patch
 ---
 
+someFunc 함수 로직 수정
+
 **버그 수정**
 
 - `someFunc` 함수에서 로직 오류 수정
@@ -55,6 +60,8 @@ allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glo
 ---
 "@naverpay/sdk": major
 ---
+
+initialize 함수 시그니처 변경
 
 **Breaking Changes**
 
