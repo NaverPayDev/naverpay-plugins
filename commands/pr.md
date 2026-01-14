@@ -62,6 +62,8 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    **중요: "by Claude Code"나 "Co-Authored-By: Claude" 같은 Claude 관련 문구 포함하지 말아야 합니다**
    **중요: 모든 PR 내용은 한국어로 작성해야 합니다**
 
+   **중요: 반드시 `.github/PULL_REQUEST_TEMPLATE.md`를 읽고 해당 형식에 맞춰 PR 본문을 작성해야 합니다.**
+
    **제목 형식:**
 
    - 단일 커밋인 경우: 해당 커밋 메시지를 제목으로 사용
@@ -71,10 +73,13 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
 
    **설명 형식:**
 
+   `.github/PULL_REQUEST_TEMPLATE.md` 형식에 맞게 pr 본문을 작성합니다.
+   template이 없다면 아래의 형식으로 작성합니다.
+
    ```markdown
    ## Issue
 
-   커밋 메시지를 분석해 태깅되어있는 이슈를 본문에 업데이트합니다.
+   커밋 메시지를 분석해 태깅되어있는 이슈가 있다면 본문에 작성합니다.
 
    ## Summary
 
@@ -90,7 +95,7 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    **한국어 콘텐츠 규칙:**
 
    - PR 제목 설명은 한국어로 작성
-   - 모든 섹션 (Summary, Changes)은 한국어로 작성
+   - 모든 섹션은 한국어로 작성
    - 기술 용어는 영어로 가능하지만 주변 텍스트는 모두 한국어로 작성
    - 제목 예시: `JWT 기반 인증 시스템 추가`
    - 설명 예시: "JWT 토큰을 사용한 로그인, 로그아웃 기능을 구현합니다."
