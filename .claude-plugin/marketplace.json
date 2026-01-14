@@ -14,13 +14,13 @@
       "name": "commit",
       "source": "./",
       "description": "스테이징된 변경사항을 분석하고 원자적 커밋 생성",
-      "version": "1.0.0-beta.1"
+      "version": "1.0.0"
     },
     {
       "name": "pr",
       "source": "./",
       "description": "현재 브랜치에서 드래프트 PR 생성",
-      "version": "1.0.0-beta.2"
+      "version": "1.0.0"
     }
   ]
 }
