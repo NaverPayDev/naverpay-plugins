@@ -24,20 +24,14 @@
 claude --plugin-dir ./path-to-naverpay-plugins
 ```
 
-## 업데이트
+### 업데이트
 
-```
-/plugin marketplace update naverpay-plugins
-```
-
-### 자동 업데이트
-
-UI를 통해 개별 marketplace의 자동 업데이트를 설정할 수 있습니다:
+UI를 통해 개별 marketplace의 업데이트를 설정/진행할 수 있습니다:
 
 - `/plugin` 명령어로 플러그인 매니저 열기
 - Marketplaces 선택
 - 목록에서 marketplace 선택
-- Enable auto-update 선택
+- Enable auto-update 또는 Update marketplace 선택
 
 ## Plugins
 
