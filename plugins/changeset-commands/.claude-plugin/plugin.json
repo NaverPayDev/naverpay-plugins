@@ -1,0 +1,9 @@
+{
+  "name": "naverpay-changeset",
+  "description": "Automates changeset generation.",
+  "author": {
+    "name": "NaverPayDev"
+  },
+  "repository": "https://github.com/NaverPayDev/naverpay-plugins",
+  "keywords": ["naverpay", "claude-plugin", "claude", "plugin", "changeset"]
+}
