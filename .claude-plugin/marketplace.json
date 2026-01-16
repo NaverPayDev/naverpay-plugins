@@ -11,10 +11,10 @@
       "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/changeset-commands"
     },
     {
-      "name": "naverpay-commit",
+      "name": "naverpay-git",
       "description": "스테이징된 변경사항을 분석하고 원자적 커밋 생성 & 드래프트 PR 생성",
-      "source": "./plugins/commit-commands",
-      "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/commit-commands"
+      "source": "./plugins/git-commands",
+      "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/git-commands"
     }
   ]
 }

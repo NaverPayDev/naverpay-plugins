@@ -1,9 +1,9 @@
-# Commit Commands Plugin
+# Git Commands Plugin
 
 ## 설치
 
 ```
-/plugin install naverpay-commit@naverpay-plugins
+/plugin install naverpay-git@naverpay-plugins
 ```
 
 ## commit
@@ -20,7 +20,7 @@
 ### 사용법
 
 ```
-/naverpay-commit:commit
+/naverpay-git:commit
 ```
 
 ## pr
@@ -37,6 +37,6 @@
 ### 사용법
 
 ```
-/naverpay-commit:pr
-/naverpay-commit:pr develop  # 특정 브랜치로 PR 생성
+/naverpay-git:pr
+/naverpay-git:pr develop  # 특정 브랜치로 PR 생성
 ```
