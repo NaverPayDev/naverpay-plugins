@@ -5,22 +5,16 @@
   },
   "plugins": [
     {
-      "name": "changeset",
-      "source": "./",
+      "name": "naverpay-changeset",
       "description": "변경된 패키지 감지 및 changeset 파일 생성",
-      "version": "1.0.1"
+      "source": "./plugins/changeset-commands",
+      "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/changeset-commands"
     },
     {
-      "name": "commit",
-      "source": "./",
-      "description": "스테이징된 변경사항을 분석하고 원자적 커밋 생성",
-      "version": "1.0.0"
-    },
-    {
-      "name": "pr",
-      "source": "./",
-      "description": "현재 브랜치에서 드래프트 PR 생성",
-      "version": "1.0.0"
+      "name": "naverpay-git",
+      "description": "스테이징된 변경사항을 분석하고 원자적 커밋 생성 & 드래프트 PR 생성",
+      "source": "./plugins/git-commands",
+      "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/git-commands"
     }
   ]
 }

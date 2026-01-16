@@ -1,0 +1,9 @@
+{
+  "name": "naverpay-git",
+  "description": "Streamlines git workflow with atomic commits and draft pull requests",
+  "author": {
+    "name": "NaverPayDev"
+  },
+  "repository": "https://github.com/NaverPayDev/naverpay-plugins",
+  "keywords": ["naverpay", "claude-plugin", "claude", "plugin", "commit", "pr"]
+}
