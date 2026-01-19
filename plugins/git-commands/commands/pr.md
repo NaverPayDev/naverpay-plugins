@@ -15,7 +15,6 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
 ## 프로세스
 
 1. **현재 저장소 및 브랜치 정보 가져오기**
-
    - `git rev-parse --show-toplevel`을 실행하여 저장소 루트 가져오기
    - `git branch --show-current`를 실행하여 현재 브랜치명 가져오기
    - `git remote get-url origin`을 실행하여 저장소 URL 가져오기
@@ -24,7 +23,6 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    - 대상 브랜치가 아닌지 확인 (같은 브랜치로 PR 불가)
 
 2. **저장소 식별자 파싱**
-
    - 지원 형식:
      - HTTPS: `https://{host}/{owner}/{repo}.git`
      - HTTPS (.git 없음): `https://{host}/{owner}/{repo}`
@@ -33,14 +31,12 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    - `{repo}` 추출 (저장소명)
 
 3. **대상 브랜치 결정**
-
    - 인자: `$ARGUMENTS` (예: `/pr develop` → `$ARGUMENTS`는 `develop`)
    - 인자가 있으면 해당 브랜치를 대상으로 사용
    - 인자가 없으면 기본값 사용: `main`
    - 대상 브랜치가 원격에 존재하는지 확인
 
 4. **GitHub 토큰 확인**
-
    - `gh`cli가 사용 가능하다면
      - `gh auth status --hostname {host}` 으로 로그인 상태 조회
      - `gh auth token --hostname {host}` 으로 로그인 토큰 조회
@@ -50,7 +46,6 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
      - 찾을 수 없으면 Personal Access Token 생성 안내
 
 5. **변경사항 분석**
-
    - `git fetch origin <target>`을 실행하여 최신 상태 확인
    - `git log origin/<target>..<current> --oneline`을 실행하여 커밋 확인
    - `git diff origin/<target>...<current> --stat`으로 파일 변경사항 확인
@@ -65,7 +60,6 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    **중요: 반드시 `.github/PULL_REQUEST_TEMPLATE.md`를 읽고 해당 형식에 맞춰 PR 본문을 작성해야 합니다.**
 
    **제목 형식:**
-
    - 단일 커밋인 경우: 해당 커밋 메시지를 제목으로 사용
    - 여러 관련 커밋인 경우: 주요 목적 요약
    - 50자 이하로 유지
@@ -93,7 +87,6 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    ```
 
    **한국어 콘텐츠 규칙:**
-
    - PR 제목 설명은 한국어로 작성
    - 모든 섹션은 한국어로 작성
    - 기술 용어는 영어로 가능하지만 주변 텍스트는 모두 한국어로 작성
@@ -101,7 +94,6 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Gr
    - 설명 예시: "JWT 토큰을 사용한 로그인, 로그아웃 기능을 구현합니다."
 
 7. **필요시 브랜치 푸시**
-
    - 현재 브랜치가 원격에 존재하는지 확인: `git ls-remote --heads origin <current>`
    - 없으면 실행: `git push -u origin <current>`
    - 푸시 성공 확인
@@ -153,7 +145,27 @@ JWT 기반 인증을 구현하여 로그인, 로그아웃, 토큰 갱신 기능�
 ```txt
 ❌ GitHub 토큰을 찾을 수 없습니다
 
-Pull Request를 생성하려면 GitHub Personal Access Token이 필요합니다.
+Pull Request를 생성하려면 GitHub CLI(gh) 또는 Personal Access Token이 필요합니다.
+
+### 방법 1: GitHub CLI 설치
+
+GitHub CLI를 설치하면 토큰을 직접 관리할 필요 없이 간편하게 인증할 수 있습니다.
+
+**설치:**
+- macOS: `brew install gh`
+- Windows: `winget install --id GitHub.cli`
+
+**인증:**
+gh auth login
+
+브라우저가 열리면 GitHub 계정으로 로그인하여 인증을 완료합니다.
+
+**인증 상태 확인:**
+gh auth status
+
+### 방법 2: Personal Access Token 직접 설정
+
+토큰을 직접 생성하여 설정할 수 있습니다.
 
 토큰 생성 단계:
 1. 이동: https://{host}/settings/tokens/new
@@ -196,20 +208,17 @@ Pull Request를 생성하려면 GitHub Personal Access Token이 필요합니다.
 **PR 생성 전:**
 
 1. **저장소 검증:**
-
    - git 저장소 내부여야 함
    - 'origin'이라는 이름의 원격이 있어야 함
    - 저장소 URL이 파싱 가능해야 함 (GitHub 형식)
 
 2. **브랜치 검증:**
-
    - 현재 브랜치가 대상 브랜치가 아니어야 함
    - 현재 브랜치가 존재하고 체크아웃되어 있어야 함
    - 대상 브랜치가 원격에 존재해야 함
    - 현재 브랜치가 대상보다 앞선 커밋이 있어야 함
 
 3. **인증 검증:**
-
    - GitHub 토큰이 있어야 함
    - 토큰에 'repo' 범위가 있어야 함
    - 토큰이 유효해야 함 (API 호출로 테스트)
@@ -270,7 +279,7 @@ const response = await fetch(
       base: targetBranch,
       draft: true,
     }),
-  }
+  },
 );
 ```
 
@@ -301,7 +310,6 @@ PR이 성공적으로 생성되었습니다!
 **organization 저장소의 경우:**
 
 1. **토큰 요구사항:**
-
    - 'repo' 범위가 있어야 함
    - organization에 대해 승인되어야 함
    - SSO 승인이 필요할 수 있음
@@ -317,7 +325,7 @@ PR이 성공적으로 생성되었습니다!
          Authorization: `Bearer ${token}`,
          Accept: "application/vnd.github.v3+json",
        },
-     }
+     },
    );
 
    if (orgResponse.status === 404) {
