@@ -182,13 +182,7 @@ gh auth status
 옵션 2:
   git config --global github.token "your_token_here"
 
-옵션 3:
-  export GITHUB_PERSONAL_ACCESS_TOKEN="your_token_here"
-  (지속성을 위해 ~/.bashrc 또는 ~/.zshrc에 추가)
-
-옵션 4:
-  ~/.config/claude/github-token 생성
-  토큰을 여기에 붙여넣기
+**보안 주의사항**: Personal Access Token은 비밀번호와 같이 안전하게 관리해야 합니다. 가능한 경우 GitHub CLI를 사용하거나 .env 파일을 저장소에 push하지 않도록 주의해주세요.
 
 토큰 설정 후 다시 시도: /pr
 ```
