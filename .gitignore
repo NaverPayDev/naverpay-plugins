@@ -1,0 +1,6 @@
+# Node
+node_modules/
+
+# Generated files
+docs/index.html
+docs/plugins/
