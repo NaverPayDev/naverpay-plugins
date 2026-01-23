@@ -1,5 +1,7 @@
 # Git Commands Plugin
 
+git과 관련된 command들을 제공합니다.
+
 ## 설치
 
 ```
