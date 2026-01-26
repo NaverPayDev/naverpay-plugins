@@ -319,6 +319,12 @@
         font-size: 0.85rem;
         overflow-x: auto;
         white-space: nowrap;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+      }
+
+      .install-command::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
       }
 
       .command {
