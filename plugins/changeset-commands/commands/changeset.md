@@ -1,6 +1,6 @@
 ---
 description: 변경된 패키지를 감지하고 changeset 파일을 생성합니다
-allowed-tools: Bash(git diff:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Grep
+allowed-tools: Bash(git diff:*), Bash(find:*), Read, Write, Glob, Grep
 ---
 
 # Changeset Generator
