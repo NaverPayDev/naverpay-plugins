@@ -4,7 +4,6 @@ on:
     types: [opened, ready_for_review, synchronize, reopened]
     branches:
       - "**"
-      - "!main"
 jobs:
   ADD_ASSIGNEE_TO_PULL_REQUEST:
     runs-on: ubuntu-latest

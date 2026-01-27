@@ -2,8 +2,5 @@
   "name": "naverpay-plugins",
   "version": "1.0.0",
   "description": "NaverPay Claude Code Plugin Marketplace",
-  "private": true,
-  "scripts": {
-    "build:docs": "node scripts/build-docs.js"
-  }
+  "private": true
 }

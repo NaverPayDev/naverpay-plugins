@@ -1,6 +1,6 @@
 ---
 description: 현재 브랜치에서 드래프트 PR 생성
-allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Grep
+allowed-tools: Bash(git:*), Bash(find:*), Bash(gh:*), Read, Write, Glob, Grep
 ---
 
 ## ⛔ 절대 금지

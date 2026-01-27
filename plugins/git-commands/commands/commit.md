@@ -1,6 +1,6 @@
 ---
 description: 스테이징된 변경사항을 분석하고 원자적 커밋 생성
-allowed-tools: Bash(git:*), Bash(find:*), Bash(command:*), Read, Write, Glob, Grep
+allowed-tools: Bash(git:*), Bash(find:*), Read, Write, Glob, Grep
 ---
 
 ## ⛔ 절대 금지

@@ -1,6 +1,10 @@
 # Node
 node_modules/
 
+# Docs dependencies
+docs/node_modules/
+docs/package-lock.json
+
 # Generated files
 docs/index.html
 docs/plugins/

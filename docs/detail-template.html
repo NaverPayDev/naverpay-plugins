@@ -195,6 +195,101 @@
         margin-bottom: 0.5rem;
       }
 
+      .plugin-content {
+        margin-top: 1.5rem;
+      }
+
+      .plugin-content h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e2e8f0;
+      }
+
+      .plugin-content h2:first-child {
+        margin-top: 0;
+      }
+
+      .plugin-content h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #4a5568;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .plugin-content p {
+        color: #4a5568;
+        line-height: 1.6;
+        margin: 0.75rem 0;
+      }
+
+      .plugin-content ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .plugin-content ol {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .plugin-content li {
+        padding: 0.5rem 0;
+        color: #4a5568;
+        line-height: 1.6;
+      }
+
+      /* 주요 기능 섹션의 리스트에만 체크마크 추가 */
+      .plugin-content .feature-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .plugin-content .feature-list li {
+        position: relative;
+        padding-left: 1.8rem;
+      }
+
+      .plugin-content .feature-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #667eea;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .plugin-content code {
+        background: #edf2f7;
+        color: #e53e3e;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: "Monaco", "Menlo", monospace;
+        font-size: 0.9em;
+      }
+
+      .plugin-content pre {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1rem 0;
+      }
+
+      .plugin-content pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
       .section {
         margin-top: 1.5rem;
         padding-top: 1.5rem;
@@ -306,6 +401,12 @@
         font-size: 0.85rem;
         overflow-x: auto;
         white-space: nowrap;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+      }
+
+      .install-command::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
       }
 
       .command {
