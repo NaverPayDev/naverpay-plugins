@@ -13,7 +13,11 @@ const OUTPUT_PATH = path.join(__dirname, "..", "index.html");
 function parseReadme(readmePath, pluginDir) {
   const content = fs.readFileSync(readmePath, "utf-8");
   const pluginName = path.basename(pluginDir);
-  const basePluginId = pluginName.replace("-commands", "").replace(/-/g, "");
+  const basePluginId = pluginName
+    .replace("-commands", "")
+    .replace("-agents", "")
+    .replace("-skills", "")
+    .replace(/-/g, "");
 
   // marked.lexer()를 사용하여 마크다운을 토큰으로 파싱
   const tokens = marked.lexer(content);
@@ -55,7 +59,10 @@ function parseReadme(readmePath, pluginDir) {
       currentSection = token.text.toLowerCase();
 
       // h2 레벨의 "설치" 섹션만 상세 페이지에서 제외 (커스텀 HTML로 만들 예정)
-      if (token.depth === 2 && (currentSection.includes("설치") || currentSection.includes("install"))) {
+      if (
+        token.depth === 2 &&
+        (currentSection.includes("설치") || currentSection.includes("install"))
+      ) {
         skipUntilNextSection = true;
       } else {
         skipUntilNextSection = false;
@@ -72,7 +79,10 @@ function parseReadme(readmePath, pluginDir) {
     // 리스트 처리
     if (token.type === "list") {
       // 주요 기능 섹션의 리스트 아이템 추출
-      if (currentSection.includes("주요 기능") || currentSection.includes("features")) {
+      if (
+        currentSection.includes("주요 기능") ||
+        currentSection.includes("features")
+      ) {
         token.items.forEach((item) => {
           features.push(item.text);
         });
@@ -107,18 +117,20 @@ function parseReadme(readmePath, pluginDir) {
   const originalList = renderer.list.bind(renderer);
   renderer.list = (body, ordered, start) => {
     // "주요 기능" 또는 "features" 섹션의 리스트에만 특별한 클래스 추가
-    if (currentHeading.includes("주요 기능") || currentHeading.includes("features")) {
-      const tag = ordered ? 'ol' : 'ul';
-      const startAttr = (ordered && start !== 1) ? ` start="${start}"` : '';
+    if (
+      currentHeading.includes("주요 기능") ||
+      currentHeading.includes("features")
+    ) {
+      const tag = ordered ? "ol" : "ul";
+      const startAttr = ordered && start !== 1 ? ` start="${start}"` : "";
       return `<${tag}${startAttr} class="feature-list">\n${body}</${tag}>\n`;
     }
     return originalList(body, ordered, start);
   };
 
   // contentTokens를 marked.parser()로 HTML로 변환
-  const detailContentHtml = contentTokens.length > 0
-    ? marked.parser(contentTokens, { renderer })
-    : "";
+  const detailContentHtml =
+    contentTokens.length > 0 ? marked.parser(contentTokens, { renderer }) : "";
 
   return {
     title: title || pluginName,
@@ -225,7 +237,11 @@ function buildDocs() {
   }
 
   // 상세 페이지 템플릿 파일 읽기
-  const DETAIL_TEMPLATE_PATH = path.join(__dirname, "..", "detail-template.html");
+  const DETAIL_TEMPLATE_PATH = path.join(
+    __dirname,
+    "..",
+    "detail-template.html",
+  );
   const detailTemplate = fs.readFileSync(DETAIL_TEMPLATE_PATH, "utf-8");
 
   // 각 플러그인의 상세 페이지 생성
