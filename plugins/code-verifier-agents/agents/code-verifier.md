@@ -201,280 +201,34 @@ grep -r "import.*from.*'path/to/file'"
 
 ### 7. 결과 리포트
 
-#### 성공 케이스 (테스트 통과 + 낮은 위험도)
+아래 통합 포맷을 사용하여 결과를 출력한다. 판정 기준에 따라 `{STATUS}` 부분만 변경한다.
+
+- ✅ 성공: 테스트 통과 + 낮은 위험도
+- ⚠️ 주의: 테스트 통과 + 테스트되지 않은 코드 경로에 중/높은 위험도 존재
+- ❌ 실패: 테스트 실패 또는 높은 위험도
 
 ```txt
-✅ 리팩터링 검증 성공
+{✅|⚠️|❌} 리팩터링 검증 {성공|주의 필요|실패}
 ━━━━━━━━━━━━━━━━━━━━━━━━
 
 📊 테스트 결과:
-  리팩터링 전: 47 passed, 0 failed
-  리팩터링 후: 47 passed, 0 failed
-  ✓ 모든 테스트 통과
+  리팩터링 전: {N} passed, {N} failed
+  리팩터링 후: {N} passed, {N} failed
+  {실패 시: 실패한 테스트 목록과 에러 메시지}
 
 🔍 정적 분석 결과:
-  변경된 파일: 3개
-  - src/auth/validation.ts
-  - src/utils/crypto.ts
-  - src/types/user.ts
+  변경된 파일: {N}개  |  수정된 함수: {N}개  |  영향 받는 파일: {N}개
 
-  수정된 함수: 5개
-  - validateEmail (src/auth/validation.ts:12)
-  - hashPassword (src/utils/crypto.ts:24)
-  - User.validate (src/types/user.ts:8)
-  - formatError (src/utils/error.ts:15)
-  - sanitizeInput (src/utils/sanitize.ts:6)
-
-  영향 받는 파일: 8개
-  ✓ 모든 호출 위치 호환성 확인 완료
-
-  ⚠️  주의사항 (낮은 위험도):
-  - validateEmail: 파라미터 순서 변경됨
-    → 모든 호출 위치(12곳)에서 named parameter 사용 중
-    → 영향 없음 ✓
-
-  - User.validate: 리턴 타입이 boolean → ValidationResult로 변경
-    → 사용하는 곳(5곳) 모두 업데이트됨 ✓
+  {발견된 문제마다 아래 항목 반복}
+  {번호}. {문제 유형} - {영향도: 낮음|중간|높음}
+     대상: {함수/타입/변수명} ({파일:라인})
+     변경: {변경 내용 요약}
+     영향: {영향 내용 요약}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━
-✅ 안전하게 리팩터링되었습니다.
-```
-
-#### 경고 케이스 (테스트 통과 + 중간 위험도)
-
-```txt
-⚠️  리팩터링 검증 - 주의 필요
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-📊 테스트 결과:
-  리팩터링 전: 47 passed, 0 failed
-  리팩터링 후: 47 passed, 0 failed
-  ✓ 모든 테스트 통과
-
-🔍 정적 분석 결과:
-  변경된 파일: 2개
-  수정된 함수: 3개
-
-  ⚠️  잠재적 문제 발견:
-
-  1. 시그니처 변경 - 높은 영향도
-     함수: processPayment (src/payment/processor.ts:45)
-     변경: 파라미터 추가 (options?: PaymentOptions)
-
-     영향 받는 파일: 15개
-
-     테스트되지 않은 호출: 8개 ❌
-     - src/api/checkout.ts:78
-     - src/api/subscription.ts:123
-     - src/webhooks/stripe.ts:56
-     - src/cron/billing.ts:34
-     - src/admin/refund.ts:91
-     - src/mobile/payment.ts:45
-     - src/legacy/order.ts:234
-     - src/integration/paypal.ts:67
-
-     권장사항:
-     → 테스트되지 않은 호출 위치에 대한 테스트 추가 필요
-     → 또는 수동으로 각 위치 확인 필요
-
-  2. 타입 변경 - 중간 영향도
-     타입: PaymentStatus (src/types/payment.ts:12)
-     변경: 'pending' | 'success' | 'failed'
-        → 'pending' | 'processing' | 'success' | 'failed' | 'refunded'
-
-     영향 받는 파일: 23개
-
-     테스트되지 않은 사용: 12개 ❌
-
-     잠재적 문제:
-     - switch 문에서 누락된 케이스 처리
-     - enum 매칭 불일치
-
-     권장사항:
-     → 모든 switch/if 문에서 새로운 상태 처리 확인
-     → exhaustive check 추가 권장
-
-  3. 전역 상태 변경 - 높은 위험도
-     변수: defaultConfig (src/config/index.ts:8)
-     변경: 초기값 변경 및 일부 속성 제거
-
-     영향 받는 파일: 45개
-
-     위험 요소:
-     - 전역 상태이므로 모든 모듈에 영향
-     - 제거된 속성에 대한 참조가 있을 수 있음
-
-     권장사항:
-     → 전역 검색으로 제거된 속성 사용처 확인
-     → 점진적 마이그레이션 고려
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  테스트는 통과했으나 테스트되지 않은 코드 경로에서
-   잠재적 문제가 있을 수 있습니다.
-
-다음 단계:
-1. 위의 테스트되지 않은 호출 위치 수동 확인
-2. 추가 테스트 작성 권장
-3. 스테이징 환경에서 충분한 검증 후 배포
-```
-
-#### 실패 케이스 (테스트 실패 또는 높은 위험도)
-
-````txt
-❌ 리팩터링 검증 실패
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-📊 테스트 결과:
-  리팩터링 전: 47 passed, 0 failed
-  리팩터링 후: 45 passed, 2 failed
-
-  ❌ 실패한 테스트:
-  - src/auth/validation.test.ts:34
-    • should validate email format
-    • 예상: true, 실제: undefined
-
-  - src/utils/crypto.test.ts:89
-    • should encrypt data correctly
-    • TypeError: hashPassword is not a function
-
-🔍 정적 분석 - 실패 원인 추론:
-
-  1. validateEmail 함수 (src/auth/validation.ts:12)
-     문제: 리턴 타입 불일치
-
-     리팩터링 전:
-     ```typescript
-     function validateEmail(email: string): boolean {
-       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-     }
-     ```
-
-     리팩터링 후:
-     ```typescript
-     function validateEmail(email: string): ValidationResult {
-       // 리턴문이 누락됨!
-       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-     }
-     ```
-
-     → 명시적 return 누락으로 undefined 반환
-     → 테스트 실패 원인 확인 ✓
-
-  2. hashPassword 함수 (src/utils/crypto.ts:24)
-     문제: export 누락
-
-     리팩터링 전:
-     ```typescript
-     export function hashPassword(password: string): string {
-       // ...
-     }
-     ```
-
-     리팩터링 후:
-     ```typescript
-     function hashPassword(password: string): string {
-       // ...
-     }
-     // export 키워드 누락!
-     ```
-
-     → export 되지 않아 외부에서 import 실패
-     → 테스트 실패 원인 확인 ✓
-
-  ⚠️  추가 위험 요소:
-
-  3. 테스트되지 않은 코드 경로
-     함수: processRefund (src/payment/refund.ts:56)
-     변경: 에러 처리 로직 제거
-
-     영향: 35개 파일
-     테스트 커버리지: 0% ❌
-
-     잠재적 문제:
-     - 오류 발생 시 처리 로직 없음
-     - 프로덕션에서 uncaught exception 가능성
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-❌ 리팩터링을 배포하지 마세요!
-
-다음 단계:
-1. validateEmail: return 문 추가
-2. hashPassword: export 키워드 추가
-3. processRefund: 에러 처리 로직 복구 또는 테스트 추가
-4. 수정 후 다시 검증: /naverpay-git:verify
-````
-
-## 출력 형식
-
-```txt
-🔍 리팩터링 검증 시작
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-현재 브랜치: feature/refactor-auth
-비교 대상: main (abc1234)
-테스트 명령어: npm test
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-📋 1단계: 코드 변경사항 분석
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔍 변경된 파일 분석 중...
-  ✓ 3개 파일 변경됨
-  - src/auth/validation.ts
-  - src/utils/crypto.ts
-  - src/types/user.ts
-
-🔍 변경된 함수 식별 중...
-  ✓ 5개 함수 수정됨
-  - validateEmail (src/auth/validation.ts:12)
-  - hashPassword (src/utils/crypto.ts:24)
-  - User.validate (src/types/user.ts:8)
-  ...
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-📋 2단계: 의존성 및 영향도 분석
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔗 의존성 분석 중...
-  validateEmail
-    → 12개 파일에서 사용됨
-    → 3개 테스트 파일에서 테스트됨
-    → 커버리지: 25% (12개 중 3개)
-
-  hashPassword
-    → 8개 파일에서 사용됨
-    → 5개 테스트 파일에서 테스트됨
-    → 커버리지: 62% (8개 중 5개)
-
-⚠️  테스트되지 않은 호출: 12개
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-📋 3단계: 테스트 실행
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-📦 리팩터링 전 상태 저장 중...
-✓ 변경사항 stash 저장 완료
-
-🔙 비교 대상 브랜치로 이동 중...
-✓ main (abc1234) 체크아웃 완료
-
-🧪 리팩터링 전 테스트 실행 중...
-  Running tests... (this may take a while)
-✓ 테스트 완료: 47 passed, 0 failed
-
-🔜 리팩터링 후 상태로 복원 중...
-✓ 브랜치 복귀 완료
-✓ Stash 복원 완료
-
-🧪 리팩터링 후 테스트 실행 중...
-  Running tests... (this may take a while)
-✓ 테스트 완료: 47 passed, 0 failed
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-📋 4단계: 종합 분석 및 리포트
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-[종합 리포트는 위의 "결과 리포트" 섹션 참조]
+{✅ 안전하게 리팩터링되었습니다.}
+{⚠️ 테스트되지 않은 코드 경로에서 잠재적 문제가 있을 수 있습니다.}
+{❌ 리팩터링을 배포하지 마세요!}
 ```
 
 ## 검증 규칙
@@ -516,77 +270,9 @@ grep -r "import.*from.*'path/to/file'"
    - 원래 브랜치로 돌아왔는지 확인
    - stash가 성공적으로 적용되었는지 확인
 
-## 특수 케이스
+## 예외 상황
 
-### 케이스 1: 변경사항 없음
-
-```txt
-ℹ️  변경사항이 없습니다
-
-현재 작업 디렉토리가 main 브랜치와 동일합니다.
-리팩터링을 먼저 수행하거나, 다른 브랜치와 비교하세요.
-
-예시:
-  /verify develop
-  /verify abc1234
-```
-
-### 케이스 2: 테스트 없음
-
-```txt
-⚠️  테스트를 찾을 수 없습니다
-
-프로젝트에서 테스트 설정을 찾을 수 없습니다.
-테스트 코드 작성을 권장합니다.
-```
-
-### 케이스 3: 의존성 변경
-
-```txt
-ℹ️  의존성 변경 감지
-
-package.json 또는 package-lock.json이 변경되었습니다.
-리팩터링 전후로 의존성을 다시 설치합니다.
-
-이 과정은 시간이 걸릴 수 있습니다...
-
-📦 리팩터링 전 의존성 설치 중...
-✓ 완료
-
-📦 리팩터링 후 의존성 설치 중...
-✓ 완료
-```
-
-### 케이스 4: 새 테스트 추가됨
-
-```txt
-ℹ️  새 테스트 감지
-
-리팩터링 후 새로운 테스트가 추가되었습니다:
-  + src/auth/newFeature.test.ts (5 tests)
-  + src/utils/helper.test.ts (3 tests)
-
-새 테스트는 비교에서 제외되었습니다.
-
-기존 테스트만 비교:
-  리팩터링 전: 47 passed, 0 failed
-  리팩터링 후: 47 passed, 0 failed (+ 8 new)
-
-✅ 기존 동작이 유지되었습니다.
-```
-
-### 케이스 5: 성능 비교
-
-```txt
-📊 성능 비교 (선택적)
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-테스트 실행 시간:
-  리팩터링 전: 12.5초
-  리팩터링 후: 8.3초
-
-⚡ 33.6% 성능 향상!
-```
+위 프로세스로 진행 중 예외 상황 발생 시, 해당 내용 설명.
 
 ## 정리 작업
 
