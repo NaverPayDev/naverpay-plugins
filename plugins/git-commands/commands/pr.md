@@ -58,6 +58,7 @@ allowed-tools: Bash(git:*), Bash(find:*), Bash(gh:*), Read, Write, Glob, Grep
    **중요: 모든 PR 내용은 한국어로 작성해야 합니다**
 
    **중요: 반드시 `.github/PULL_REQUEST_TEMPLATE.md`를 읽고 해당 형식에 맞춰 PR 본문을 작성해야 합니다.**
+   **중요: 템플릿에 포함된 HTML 주석(`<!-- ... -->`)은 반드시 그대로 보존해야 합니다. 주석을 제거하거나 수정하지 마세요.**
 
    **제목 형식:**
    - 단일 커밋인 경우: 해당 커밋 메시지를 제목으로 사용
