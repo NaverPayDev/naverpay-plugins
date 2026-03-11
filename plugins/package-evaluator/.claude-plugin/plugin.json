@@ -1,0 +1,9 @@
+{
+  "name": "naverpay-package-evaluator",
+  "description": "Evaluates npm packages before installation using npmx.dev data",
+  "author": {
+    "name": "NaverPayDev"
+  },
+  "repository": "https://github.com/NaverPayDev/naverpay-plugins",
+  "keywords": ["naverpay", "claude-plugin", "claude", "plugin", "npm", "package", "evaluate"]
+}

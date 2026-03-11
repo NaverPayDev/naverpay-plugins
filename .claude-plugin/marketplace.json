@@ -21,6 +21,12 @@
       "description": "코드 검증 및 사이드 이펙트 분석",
       "source": "./plugins/code-verifier-agents",
       "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/code-verifier-agents"
+    },
+    {
+      "name": "naverpay-package-evaluator",
+      "description": "npm 패키지 도입 전 npmx.dev 데이터 기반 자동 평가",
+      "source": "./plugins/package-evaluator",
+      "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/package-evaluator"
     }
   ]
 }
