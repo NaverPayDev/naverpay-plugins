@@ -1,5 +1,6 @@
 {
   "name": "naverpay-package-evaluator",
+  "version": "0.1.0",
   "description": "Evaluates npm packages before installation using npmx.dev data",
   "author": {
     "name": "NaverPayDev"
