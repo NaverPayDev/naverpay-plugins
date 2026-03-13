@@ -29,3 +29,4 @@ UI를 통해 개별 marketplace의 업데이트를 설정/진행할 수 있습�
 
 - [changeset-commands](./plugins/changeset-commands)
 - [git-commands](./plugins/git-commands)
+- [naverpay-package-evaluator](./plugins/package-evaluator/)
