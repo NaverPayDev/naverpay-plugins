@@ -31,6 +31,7 @@ Chrome/Chromium이 CDP 모드로 실행 중이어야 합니다. 실행 중이 �
 ### 1. 스크립트 실행으로 메트릭 수집
 
 플러그인 디렉토리 내 `scripts/scrape-npmx.mjs` 스크립트를 실행하여 npmx.dev에서 데이터를 수집합니다.
+스크립트는 DOM 셀렉터 대신 **CDP Accessibility Tree**를 사용하여 CSS 클래스 변경에 영향받지 않습니다.
 
 ```bash
 # 플러그인 스크립트 경로 찾기
