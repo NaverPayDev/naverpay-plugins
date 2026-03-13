@@ -57,7 +57,28 @@ node <스크립트경로>/scrape-npmx.mjs $ARGUMENTS
 - 동일 패키지가 이미 설치되어 있는 경우 → 중복 설치 경고
 - 유사 기능의 패키지가 이미 있는 경우 → 기존 패키지 활용 권장
 
-### 3. GitHub 이슈 분석 (가능한 경우)
+### 3. peerDependencies 호환성 확인
+
+평가 대상 패키지의 `peerDependencies`가 현재 프로젝트와 호환되는지 확인합니다.
+
+```bash
+# 대상 패키지의 peerDependencies 조회
+npm view <패키지명> peerDependencies --json
+```
+
+프로젝트의 패키지 매니페스트에서 현재 설치된 버전을 확인합니다:
+
+- `package.json` (npm/yarn/pnpm)
+- `bun.lockb` 또는 `bun.lock` 존재 시 Bun 환경
+- `deno.json` 또는 `deno.jsonc` 존재 시 Deno 환경 (`imports` 필드 확인)
+
+확인 항목:
+
+- **미충족 peer**: peerDependencies에 명시된 패키지가 프로젝트에 없는 경우 → ⚠️ 경고 (설치 필요)
+- **버전 불일치**: peerDependencies 범위와 프로젝트의 설치 버전이 호환되지 않는 경우 → ❌ 거부
+- **선택적 peer**: `peerDependenciesMeta`에서 `optional: true`인 경우 → 미설치여도 무시
+
+### 4. GitHub 이슈 분석 (가능한 경우)
 
 `npm view <패키지명> repository.url --json`으로 GitHub 저장소 URL을 가져옵니다.
 GitHub 저장소가 확인되면 아래 정보를 추가 수집합니다:
@@ -78,7 +99,7 @@ gh api "repos/{owner}/{repo}/issues?state=all&per_page=20&sort=created&direction
 - **방치된 이슈**: 코멘트 0개이고 30일 이상 열려있는 이슈 수
 - GitHub 저장소가 없거나 접근 불가한 경우 이 단계를 건너뜁니다
 
-### 4. 평가 기준 적용
+### 5. 평가 기준 적용
 
 수집된 메트릭을 기준에 대입하여 판정합니다:
 
@@ -88,6 +109,7 @@ gh api "repos/{owner}/{repo}/issues?state=all&per_page=20&sort=created&direction
 - License가 GPL 계열 (소스 공개 의무)
 - Deprecated 상태
 - High 이상 심각도의 취약점(Vulnerabilities)이 1건 이상 존재
+- peerDependencies 버전이 프로젝트의 설치 버전과 호환되지 않음
 
 #### 경고 조건 (⚠️ 주의 필요)
 
@@ -97,6 +119,7 @@ gh api "repos/{owner}/{repo}/issues?state=all&per_page=20&sort=created&direction
 - CJS 전용 (ESM 미지원) — 도입은 가능하나 ESM 지원 대안이 있으면 대안 우선
 - GitHub 이슈 중 버그 비율 50% 이상
 - 이슈 평균 응답 기간 30일 초과
+- 필수 peerDependencies가 프로젝트에 미설치 (추가 설치 필요)
 
 #### 양호 조건 (✅)
 
@@ -105,7 +128,7 @@ gh api "repos/{owner}/{repo}/issues?state=all&per_page=20&sort=created&direction
 - ESM 지원 (ESM + CJS 듀얼 포함)
 - TypeScript 타입 지원
 
-### 5. 결과 출력
+### 6. 결과 출력
 
 ## 출력 형식
 
