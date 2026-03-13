@@ -15,6 +15,12 @@
       "description": "스테이징된 변경사항을 분석하고 원자적 커밋 생성 & 드래프트 PR 생성",
       "source": "./plugins/git-commands",
       "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/git-commands"
+    },
+    {
+      "name": "naverpay-code-verifier",
+      "description": "코드 검증 및 사이드 이펙트 분석",
+      "source": "./plugins/code-verifier-agents",
+      "homepage": "https://github.com/NaverPayDev/naverpay-plugins/tree/main/plugins/code-verifier-agents"
     }
   ]
 }
