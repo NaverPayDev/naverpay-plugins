@@ -62,11 +62,18 @@ node <스크립트경로>/scrape-npmx.mjs $ARGUMENTS
 평가 대상 패키지의 `peerDependencies`가 현재 프로젝트와 호환되는지 확인합니다.
 
 ```bash
-# 대상 패키지의 peerDependencies 조회
-npm view <패키지명> peerDependencies --json
+# 대상 패키지의 peerDependencies 및 optional 여부 조회
+npm view <패키지명> peerDependencies peerDependenciesMeta --json
 ```
 
-프로젝트의 패키지 매니페스트에서 현재 설치된 버전을 확인합니다:
+프로젝트의 실제 설치 버전을 확인합니다 (`package.json`의 semver 범위가 아닌 resolved 버전 기준):
+
+```bash
+# 실제 설치된 버전 확인 (lockfile 기반)
+npm ls <peer-패키지명> --json 2>/dev/null | node -e "const d=require('/dev/stdin'); console.log(JSON.stringify(d?.dependencies))"
+```
+
+패키지 매니저 감지:
 
 - `package.json` (npm/yarn/pnpm)
 - `bun.lockb` 또는 `bun.lock` 존재 시 Bun 환경
@@ -155,6 +162,10 @@ gh api "repos/{owner}/{repo}/issues?state=all&per_page=20&sort=created&direction
 
 🔍 기존 설치 패키지 확인
 - 동일/유사 패키지: 해당 없음
+
+🔗 peerDependencies 호환성
+- react: ^18.0.0 → 프로젝트 설치: 18.3.1 ✅
+- react-dom: ^18.0.0 → 미설치 ⚠️
 
 ⚖️ 판정: ✅ 도입 가능
 ━━━━━━━━━━━━━━━━━━━━━━━━
