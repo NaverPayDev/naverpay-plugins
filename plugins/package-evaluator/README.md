@@ -1,6 +1,6 @@
 # Package Evaluator Plugin
 
-npm 패키지 도입 전 npmx.dev 데이터를 기반으로 자동 평가합니다.
+npm 패키지 도입 전 npmx.dev 데이터를 기반으로 자동 평가하는 Sub Agent를 제공합니다.
 
 ## 주요 기능
 
@@ -11,18 +11,18 @@ npm 패키지 도입 전 npmx.dev 데이터를 기반으로 자동 평가합니�
 
 ## 설치
 
-```
+```bash
 /plugin install naverpay-package-evaluator@naverpay-plugins
 ```
 
 ## 사용법
 
-```bash
-# 단일 패키지 평가
-/naverpay-package-evaluator:evaluate-package lodash-es
+자연어로 Agent를 호출합니다:
 
-# 여러 패키지 비교 평가
-/naverpay-package-evaluator:evaluate-package lodash-es es-toolkit
+```txt
+"lodash-es 평가해줘"
+"lodash-es와 es-toolkit 비교해줘"
+"@naverpay/hidash 도입 가능한지 확인해줘"
 ```
 
 ## 사전 요구사항
@@ -39,9 +39,9 @@ npm 패키지 도입 전 npmx.dev 데이터를 기반으로 자동 평가합니�
 
 ## 수집 메트릭
 
-| 카테고리 | 항목 |
-|---|---|
-| Performance | Package Size, Install Size, Direct Deps, Total Deps |
-| Health | Downloads/wk, Likes, Published, Deprecated |
-| Compatibility | Engines, Types, Module Format |
-| Security & Compliance | License, Vulnerabilities |
+| 카테고리              | 항목                                                |
+| --------------------- | --------------------------------------------------- |
+| Performance           | Package Size, Install Size, Direct Deps, Total Deps |
+| Health                | Downloads/wk, Likes, Published, Deprecated          |
+| Compatibility         | Engines, Types, Module Format                       |
+| Security & Compliance | License, Vulnerabilities                            |
