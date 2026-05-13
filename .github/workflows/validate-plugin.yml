@@ -22,7 +22,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          prompt: |
             이 PR에서 `plugins/` 디렉토리 아래 변경된 플러그인의 구조와 문서를 검사하고 결과를 PR 코멘트로 남겨줘.
 
             ## 검사 방법
