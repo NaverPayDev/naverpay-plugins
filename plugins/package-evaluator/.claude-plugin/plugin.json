@@ -6,5 +6,19 @@
     "name": "NaverPayDev"
   },
   "repository": "https://github.com/NaverPayDev/naverpay-plugins",
-  "keywords": ["naverpay", "claude-plugin", "claude", "plugin", "npm", "package", "evaluate"]
+  "keywords": [
+    "naverpay",
+    "claude-plugin",
+    "claude",
+    "plugin",
+    "npm",
+    "package",
+    "evaluate"
+  ],
+  "agents": [
+    {
+      "name": "evaluate-package",
+      "path": "./agents/evaluate-package.md"
+    }
+  ]
 }
