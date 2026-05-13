@@ -1,0 +1,24 @@
+{
+  "name": "naverpay-use-naverpaydev-lib",
+  "version": "0.1.0",
+  "description": "node_modules에서 @naverpay/* 및 @pie/* 패키지의 llms.txt를 읽어 올바른 API 사용법을 컨텍스트에 주입합니다",
+  "author": {
+    "name": "NaverPayDev"
+  },
+  "repository": "https://github.com/NaverPayDev/naverpay-plugins",
+  "keywords": [
+    "naverpay",
+    "claude-plugin",
+    "claude",
+    "plugin",
+    "llms.txt",
+    "hidash",
+    "pie"
+  ],
+  "skills": [
+    {
+      "name": "use-naverpaydev-lib",
+      "path": "./skills/use-naverpaydev-lib.md"
+    }
+  ]
+}
