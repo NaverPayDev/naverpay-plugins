@@ -1,0 +1,91 @@
+name: Plugin Validator
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'plugins/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate plugin structure with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            이 PR에서 `plugins/` 디렉토리 아래 변경된 플러그인의 구조와 문서를 검사하고 결과를 PR 코멘트로 남겨줘.
+
+            ## 검사 방법
+
+            1. 변경된 플러그인 디렉토리 파악
+               ```bash
+               git diff --name-only origin/${{ github.base_ref }}...HEAD -- plugins/
+               ```
+               경로에서 `plugins/<plugin-name>/` 수준의 고유 플러그인 목록을 추출해.
+
+            2. 각 플러그인에 대해 아래 항목을 순서대로 검사해.
+
+            ## 검사 항목
+
+            ### 필수 파일 존재 여부
+            - [ ] `.claude-plugin/plugin.json` 존재
+            - [ ] `README.md` 존재
+            - [ ] `plugin.json`에 선언된 skill/agent/command 파일이 실제로 존재
+
+            ### plugin.json 스키마
+            `.claude-plugin/plugin.json`을 읽어 아래 필드가 모두 있는지 확인:
+            - `name` (문자열, 필수)
+            - `description` (문자열, 필수)
+            - `author.name` (필수)
+            - `repository` (필수, `https://github.com/NaverPayDev/naverpay-plugins` 포함)
+            - `skills` / `agents` / `commands` 중 하나 이상 선언
+
+            ### 스킬/에이전트/커맨드 파일 frontmatter
+            선언된 각 파일(`.md`)을 읽어:
+            - `description` 필드 존재
+            - `allowed-tools` 또는 `tools` 필드 존재 (선택이지만 누락 시 주의 표시)
+            - YAML frontmatter가 `---`로 올바르게 열리고 닫히는지
+
+            ### README 품질 (참고용, 실패 처리 안 함)
+            - 설치 방법 (`/plugin install`) 언급 여부
+            - 사용법 예시 포함 여부
+
+            ## 코멘트 형식
+
+            검사 결과를 아래 형식으로 PR에 코멘트를 달아줘. 반드시 한국어로 작성.
+
+            ```markdown
+            ## 🔍 플러그인 구조 검사 결과
+
+            ### `<plugin-name>`
+
+            | 항목 | 결과 | 비고 |
+            |------|------|------|
+            | `.claude-plugin/plugin.json` | ✅ / ❌ | |
+            | `README.md` | ✅ / ❌ | |
+            | 선언된 파일 존재 | ✅ / ❌ | |
+            | plugin.json 필수 필드 | ✅ / ❌ | 누락 필드 목록 |
+            | frontmatter 유효성 | ✅ / ❌ | |
+
+            <!-- 문제가 있을 경우 -->
+            **수정 필요:**
+            - ...
+
+            <!-- 모두 통과 시 -->
+            **모든 검사 통과** — 플러그인 구조가 올바릅니다.
+            ```
+
+            `plugins/` 외 파일만 변경된 경우(예: `examples/`, 루트 파일)에는 코멘트 없이 조용히 종료해.
+          claude_args: |
+            --allowedTools "Bash(git diff:*),Bash(git log:*),Bash(cat:*),Bash(ls:*),Read,Glob,Grep"
+            --max-turns 5
